@@ -46,7 +46,7 @@ void ListOfModels::displayElements() {
 Model * ListOfModels::searchedModel(Leasing l) {
 	Model* temp = head;
 	while (temp) {
-		l = Leasing(36, 20, 20000);
+		l = Leasing(36, 20, 10000);
 		l.calculateMonthRate(temp);
 		std::cout << l;
 		std::cout << std::endl;

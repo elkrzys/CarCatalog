@@ -19,14 +19,15 @@ int main() {
 	ReadModelFile fileOfModels("spis_aut.csv");
 	ReadEngineFile fileOfEngines("silniki.txt");
 
-	Leasing* calcLeasing = new Leasing();
+	Leasing calcLeasing;
+	calcLeasing.ReadConstData("oprocentowanie.txt");
 
 	
 	fileOfEngines.MakeEnginesTree(tree);
 	fileOfModels.GetModelFromLine(&tree, &listOfCars);
 	listOfCars.displayElements();
 
-	listOfCars.searchedModel(*calcLeasing);
+	listOfCars.searchedModel(calcLeasing);
 
 	
 	_getch;

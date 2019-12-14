@@ -6,12 +6,12 @@
 
 class Leasing{
 	double monthRate; // rata mieiesczna - wyliczenie
-	int yearMileage; // roczny przebieg
+	int annMileage; // roczny przebieg
 	int period; // okres leasingu
 	double amortization; // procent amortyzacji dla samochodu - do wyliczenia wartosci wykupu
 	double finalBuyPrice;
-	std::vector<double> Percentages;
-	std::vector<int> MileagesLimits;
+	std::vector<double> Percentages; //stale oprocentowania zalezne od przedzialu przebiegu
+	std::vector<unsigned int> MileagesLimits; //stale przebiegi w tysiacach
 	double ownContribution; // wklad wlasny procentowo
 	double ownContributionValue;
 	double constMarkup; // stala marza
@@ -22,9 +22,12 @@ class Leasing{
 public:
 	Leasing(); //konstruktor do stworzenia obiektu maj¹cego ju¿ dane dotycz¹ce oprocentowania i odczytane tablice przebiegów
 	Leasing(int, double, int); // konstruktor wywo³ywany podczas faktycznego obliczania leasingu, przyjmuje okres, wklad w³asny i roczny przebieg
-	double calculateTotalMarkup(); // wylicza totalMarkup zalezny od przbeigu i okresu
-	void calculateMonthRate(Model *&);
+	void ReadConstData(std::string filename); //odczyt stalego oprocentowania i przebiegow z pliku
+	Leasing& operator=(Leasing );
+	void calculateTotalMarkup(); // wylicza totalMarkup zalezny od przbeigu i okresu
+	void calculateMonthRate(Model *&); //oblicza calkowita rate miesieczna z podanego modelu
 	friend std::ostream& operator << (std::ostream& os, Leasing ); //wyswietlanie raty
+	
 
 };
 
