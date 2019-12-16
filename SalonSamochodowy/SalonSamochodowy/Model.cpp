@@ -7,7 +7,7 @@
 
 Model::Model(std::string mname, std::string gen, int yr, std::vector<std::string> loc,
 	std::string trt, int grs, std::string drv, std::string ename, Body bdy,
-	Engine *& engn, EQUIPMENT eq, float pr)
+	Engine*& engn, EQUIPMENT eq, float pr)
 	:
 	modelName(mname),
 	generation(gen),
@@ -20,7 +20,8 @@ Model::Model(std::string mname, std::string gen, int yr, std::vector<std::string
 	body(bdy),
 	engine(engn),
 	equipment(eq),
-	price(pr)
+	price(pr),
+	next(nullptr)
 {}
 void Model::DisplayModelInfo() const{
 	std::cout.precision(2);

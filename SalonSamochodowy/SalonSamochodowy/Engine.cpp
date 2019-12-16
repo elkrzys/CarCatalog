@@ -30,6 +30,7 @@ std::ostream &operator << (std::ostream &os, const Engine &e) {
 	os << " Rodzaj paliwa: " << e.fuelType << std::endl;
 	os << "Moc: " << e.horsePower;
 	os << " Srednie spalanie: " << e.avgFuelConsumption << std::endl;
+	//naprawic wysweitlanie turbo (wyswietla 0 lub 1)
 	os << (e.turbo) ? "Silnik turbodoladowany" : "Bez turbosprezarki";
 	os << std::endl;
 	return os;
