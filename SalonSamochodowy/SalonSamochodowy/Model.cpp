@@ -4,6 +4,7 @@
 #include "Body.h"
 #include "Model.h"
 #include<vector>
+#include<map>
 
 Model::Model(std::string mname, std::string gen, int yr, std::vector<std::string> loc,
 	std::string trt, int grs, std::string drv, std::string ename, Body bdy,
@@ -32,8 +33,25 @@ void Model::DisplayModelInfo() const{
 	}
 	std::cout << std::endl;
 	std::cout << *this->engine;
-	
 }
 float Model::getPrice() {
 	return this->price;
+}
+std::string Model::getModelName() {
+	return this->modelName;
+}
+std::string Model::getGen() {
+	return this->generation;
+}
+Body* Model::getBody() {
+	return &this->body;
+}
+Engine* Model::getEngine() {
+	return this->engine;
+}
+std::vector<std::string> Model::getLoc() {
+	return this->localization;
+}
+int Model::getYear() {
+	return this->yearOfProduction;
 }

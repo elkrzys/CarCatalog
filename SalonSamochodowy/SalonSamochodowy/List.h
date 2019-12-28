@@ -4,9 +4,10 @@
 #include "Model.h"
 #include "Leasing.h"
 class ListOfModels {
-	Model *head;
+	
 	int length;
 public:
+	Model* head;
 	ListOfModels();
 	void push(Model m); // dodawanie na koniec listy
 	void deleteList();

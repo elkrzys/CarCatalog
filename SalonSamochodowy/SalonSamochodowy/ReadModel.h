@@ -1,4 +1,3 @@
-#pragma once
 #ifndef  READMODEL_H
 #define READMODEL_H
 #include"Model.h"

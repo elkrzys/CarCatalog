@@ -26,14 +26,28 @@ private:
 
 public:
 	void DisplayModelInfo() const; // wyswietla wszystkie informacje o samochodzie
-	float getPrice();
+	//Model(const Model& p1);
 	Model(std::string mname, std::string gen, int yr, std::vector<std::string> loc,
 		std::string trt, int grs, std::string drv, std::string ename, Body bdy,
 		Engine *& engn, EQUIPMENT eq, float pr);
 	~Model() {};
-
 	//wskaznik na nastepny element - potrzebne do listy
-	Model * next;
+	Model* next;
+
+	//gettery do wyszukiwania
+	float getPrice();
+	std::string getModelName();
+	std::string getGen();
+	Body * getBody();
+	Engine* getEngine();
+	std::vector<std::string> getLoc();
+	int getYear();
+
+
+
+	
+	
+	
 
 };
 #endif

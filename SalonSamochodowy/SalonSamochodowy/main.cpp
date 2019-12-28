@@ -27,9 +27,15 @@ int main() {
 	fileOfModels.GetModelFromLine(&tree, &listOfCars);
 	listOfCars.displayElements();
 
+	//kalkulacja leasingu, zrobic klase obslugi interfejsu
+	//zeby mozna bylo wywolywac to niezaleznie
+	// zebranie danych do leasingu
+	// zebranie kryteriow wyszukiwania
+	// wyswietlenie calej listy
+	// elo koniec B)
 	listOfCars.searchedModel(calcLeasing);
 
 	
-	_getch;
+	_getch();
 	return 0;
 }

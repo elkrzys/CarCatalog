@@ -12,5 +12,10 @@ public:
 	Body(std::string, int, int, int, std::string, std::string);
 	~Body() {};
 
+	std::string getColor();
+	std::string getType();
+	int getDoors();
+
+
 };
 #endif

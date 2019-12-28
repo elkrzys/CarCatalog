@@ -11,3 +11,12 @@ Body::Body(std::string t, int doors, int seats,
 	color(clr),
 	specificColor(sclr)
 {}
+std::string Body::getColor() {
+	return this->color;
+}
+std::string Body::getType() {
+	return this->type;
+}
+int Body::getDoors() {
+	return this->doors;
+}

@@ -20,5 +20,9 @@ public:
 	~Engine() {};
 
 	Engine *left, *right;
+
+	std::string getFuelType();
+	float getCapacity();
+	int getHP();	
 };
 #endif
