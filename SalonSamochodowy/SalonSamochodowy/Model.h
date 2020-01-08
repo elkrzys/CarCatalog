@@ -8,6 +8,7 @@ enum EQUIPMENT { Enjoy, Dynamic, Elite, Unknown };
 
 class Model {
 private:
+	int id;
 	std::string modelName;
 	std::string generation;
 	int yearOfProduction;
@@ -27,7 +28,7 @@ private:
 public:
 	void DisplayModelInfo() const; // wyswietla wszystkie informacje o samochodzie
 	//Model(const Model& p1);
-	Model(std::string mname, std::string gen, int yr, std::vector<std::string> loc,
+	Model(int _id, std::string mname, std::string gen, int yr, std::vector<std::string> loc,
 		std::string trt, int grs, std::string drv, std::string ename, Body bdy,
 		Engine *& engn, EQUIPMENT eq, float pr);
 	~Model() {};
@@ -42,12 +43,6 @@ public:
 	Engine* getEngine();
 	std::vector<std::string> getLoc();
 	int getYear();
-
-
-
-	
-	
-	
-
+	int getID();
 };
 #endif

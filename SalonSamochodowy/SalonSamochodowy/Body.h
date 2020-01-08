@@ -15,7 +15,5 @@ public:
 	std::string getColor();
 	std::string getType();
 	int getDoors();
-
-
 };
 #endif

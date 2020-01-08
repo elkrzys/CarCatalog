@@ -6,10 +6,11 @@
 #include<vector>
 #include<map>
 
-Model::Model(std::string mname, std::string gen, int yr, std::vector<std::string> loc,
+Model::Model(int _id, std::string mname, std::string gen, int yr, std::vector<std::string> loc,
 	std::string trt, int grs, std::string drv, std::string ename, Body bdy,
 	Engine*& engn, EQUIPMENT eq, float pr)
 	:
+	id(_id),
 	modelName(mname),
 	generation(gen),
 	yearOfProduction(yr),
@@ -26,6 +27,7 @@ Model::Model(std::string mname, std::string gen, int yr, std::vector<std::string
 {}
 void Model::DisplayModelInfo() const{
 	std::cout.precision(2);
+	std::cout << "ID: " << this->id << std::endl;
 	std::cout << this->modelName << ' ' << "price: " << std::fixed << this->price<< std::endl;
 	std::cout << this->engine->getEngineName() << std::endl;
 	for (auto &loc : this->localization) {
@@ -54,4 +56,7 @@ std::vector<std::string> Model::getLoc() {
 }
 int Model::getYear() {
 	return this->yearOfProduction;
+}
+int Model::getID() {
+	return this->id;
 }

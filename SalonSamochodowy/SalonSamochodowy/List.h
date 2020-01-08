@@ -14,5 +14,8 @@ public:
 	void displayElements();
 	Model* searchedModel(Leasing l);
 	~ListOfModels(); // destruktor usuwaj¹cy listê
+
+	int getHeadID();
+	void setHeadID();
 };
 #endif

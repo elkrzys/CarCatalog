@@ -20,13 +20,20 @@ class Leasing{
 	double annualInterestRate; // calkowite oprocentowanie roczne
 	double r; // miesieczna rata oprocentowania
 public:
-	Leasing(); //konstruktor do stworzenia obiektu maj¹cego ju¿ dane dotycz¹ce oprocentowania i odczytane tablice przebiegów
-	Leasing(int, double, int); // konstruktor wywo³ywany podczas faktycznego obliczania leasingu, przyjmuje okres, wklad w³asny i roczny przebieg
-	void ReadConstData(std::string filename); //odczyt stalego oprocentowania i przebiegow z pliku
-	Leasing& operator=(Leasing );
-	void calculateTotalMarkup(); // wylicza totalMarkup zalezny od przbeigu i okresu
-	void calculateMonthRate(Model *&); //oblicza calkowita rate miesieczna z podanego modelu
-	friend std::ostream& operator << (std::ostream& os, Leasing ); //wyswietlanie raty
+	//konstruktor do stworzenia obiektu maj¹cego ju¿ dane dotycz¹ce oprocentowania i odczytane tablice przebiegów
+	Leasing(); 
+	// konstruktor wywo³ywany podczas faktycznego obliczania leasingu, przyjmuje okres, wklad w³asny i roczny przebieg
+	Leasing(int, double, int); 
+	//odczyt stalego oprocentowania i przebiegow z pliku
+	void ReadConstData(std::string filename); 
+	//konstruktor kopiujacy informacje z obiektu skonfigurowanego przez usera
+	Leasing& operator=(Leasing);
+	// wylicza totalMarkup zalezny od przbeigu i okresu
+	void calculateTotalMarkup(); 
+	//oblicza calkowita rate miesieczna z podanego modelu
+	void calculateMonthRate(Model); 
+	//wyswietlanie raty
+	friend std::ostream& operator << (std::ostream& os, Leasing ); 
 	
 
 };

@@ -40,35 +40,36 @@ void ReadModelFile::GetModelFromLine(TreeOfEngines * root, ListOfModels * head) 
 	//	std::cout << "lp: " << liczbaPetli++ << std::endl;
 	//	std::cout << "wielkosc vectora: " << dataSegments.size() << std::endl;
 		Body tmpBody = {
-			dataSegments[8],
-			std::stoi(dataSegments[9]),
+			dataSegments[9],
 			std::stoi(dataSegments[10]),
 			std::stoi(dataSegments[11]),
-			dataSegments[12],
+			std::stoi(dataSegments[12]),
 			dataSegments[13],
+			dataSegments[14],
 		};
 
 		//wydzielenie lokalizacji
 
 		//konwersja enum
-		EQUIPMENT eq = convertSegmentToEq(dataSegments[7]);
+		EQUIPMENT eq = convertSegmentToEq(dataSegments[8]);
 		
 		//znalezienie silnika po nazwie i stworzenie wskaznika na ten obiekt w drzewie
-		Engine * tmpEngine = root->search(dataSegments[14]);
+		Engine * tmpEngine = root->search(dataSegments[15]);
 		//std::cout << "Dodalem do modelu silnik: " << tmpEngine->getEngineName()<<std::endl;
 		Model tmpModel(
-			dataSegments[0],
-			dataSegments[1],
-			std::stoi(dataSegments[2]),
-			SplitLine(dataSegments[3], ","),//LOKALIZACJA DO VECTORA
-			dataSegments[4],//transsmision type
-			std::stoi(dataSegments[5]),//gears
-			dataSegments[6], //drive
-			dataSegments[14], //engineName
+			stoi(dataSegments[0]), //ID
+			dataSegments[1], //model
+			dataSegments[2], //generacja
+			stoi(dataSegments[3]), //rok produkcji
+			SplitLine(dataSegments[4], ","),//LOKALIZACJA DO VECTORA
+			dataSegments[5],//transsmision type
+			stoi(dataSegments[6]),//gears
+			dataSegments[7], //drive
+			dataSegments[15], //engineName
 			tmpBody,
 			tmpEngine,
 			eq,
-			std::stod(dataSegments[15])
+			stof(dataSegments[16]) //cena
 		);
 		//tmpModel.DisplayModelInfo();
 		head->push(tmpModel);

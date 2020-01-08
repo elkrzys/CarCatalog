@@ -8,6 +8,7 @@
 #include"ReadModel.h"
 #include"Tree.h"
 #include"Leasing.h"
+#include"UserInterface.h"
 #include<iostream>
 
 
@@ -25,17 +26,24 @@ int main() {
 	
 	fileOfEngines.MakeEnginesTree(tree);
 	fileOfModels.GetModelFromLine(&tree, &listOfCars);
-	listOfCars.displayElements();
-
-	//kalkulacja leasingu, zrobic klase obslugi interfejsu
-	//zeby mozna bylo wywolywac to niezaleznie
-	// zebranie danych do leasingu
-	// zebranie kryteriow wyszukiwania
-	// wyswietlenie calej listy
-	// elo koniec B)
-	listOfCars.searchedModel(calcLeasing);
-
 	
+	SearchModel search;
+	//UserInterface Menu(listOfCars, search, calcLeasing);
+	UserInterface::DisplayWelcome();
+	int _returnedOption = 0;
+	//UserInterface Menu(listOfCars, search, calcLeasing);
+	UserInterface Menu;
+	do {
+		Menu.DisplayMainMenu();
+		_returnedOption = Menu.MainMenu(&listOfCars, search, calcLeasing);
+		std::cout << "W petli menu\n";
+	} while (_returnedOption != 9);
+	std::cout << "Wyszedlem" << std::endl;
+	//Menu.DisplayMainMenu();
+	//Menu.MainMenu();
+	//listOfCars.displayElements();
+
+	listOfCars.deleteList();
 	_getch();
 	return 0;
 }

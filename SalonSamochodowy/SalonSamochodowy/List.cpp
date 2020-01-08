@@ -22,18 +22,21 @@ void ListOfModels::push(Model m) {
 void ListOfModels::deleteList() {
 	if (!head) return;
 	else {
-		//int i = 1;
-		Model * next;
+		int i = 1;
+		Model * next = nullptr;
 		while (head) {
-			//std::cout << "Usuwam element nr " << i++ <<std::endl;
+			std::cout << "Usuwam element nr " << i++ <<std::endl;
 			next = head->next;
 			delete head;
 			head = next;
 		}
+		delete next;
 	}
 }
 void ListOfModels::displayElements() {
-	if (!head) std::cout << "Pusta baza" << std::endl;
+	if (!head) {
+		std::cout << "Pusta baza" << std::endl;
+	}
 	else {
 		Model * p = head;
 		while (p) {
@@ -43,17 +46,7 @@ void ListOfModels::displayElements() {
 		}
 	}
 }
-Model * ListOfModels::searchedModel(Leasing l) {
-	Model* temp = head;
-	while (temp) {
-		l = Leasing(36, 20, 10000);
-		l.calculateMonthRate(temp);
-		std::cout << l;
-		std::cout << std::endl;
-		temp = temp->next;
-	}
-	return nullptr;
-}
 ListOfModels::~ListOfModels() {
-	deleteList();
+	//deleteList();
+	std::cout << "destroying list";
 }

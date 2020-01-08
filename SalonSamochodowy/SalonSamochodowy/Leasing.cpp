@@ -12,9 +12,7 @@ Leasing::Leasing()
 	//moze byc w uzyciu przy blednym odczycie pliku
 	amortization(0.01), constInterestRate(0.02), constMarkup(0.01), 
 	MileagesLimits({ 0, 10000, 20000, 30000 }), Percentages({ 0.001, 0.005, 0.01, 0.05 })
-{
-
-}
+{}
 //konstruktor na potrzebe przypisania wybranych przez uzytkownika danych
 Leasing::Leasing(int _period, double _ownC, int _miles)
 	:
@@ -99,18 +97,18 @@ void Leasing::calculateTotalMarkup() {
 	//std::cout << totalMarkup << " -< TOTAL MARKUP w metodzie\n";
 }
 
-void Leasing::calculateMonthRate(Model *& m) {
+void Leasing::calculateMonthRate(Model m) {
 	calculateTotalMarkup();
-	finalBuyPrice = amortization * m->getPrice();
+	finalBuyPrice = amortization * m.getPrice();
 	annualInterestRate = constInterestRate + totalMarkup;
 	//std::cout << constInterestRate << ' ' << totalMarkup << "<- stale oprocentowanie i marza";
 	//std::cout << annualInterestRate << "<- ROCZNE OPROCENTOWANIE";
 	r = annualInterestRate / (double)12; // oprocentowanie miesieczne
 	//std::cout << r << "<- MIESIECZNE OPROCENTOWANIE";
-	ownContributionValue = m->getPrice() * ownContribution; //wartosc wkladu wlasnego
-	std::cout << "\ncena: "<< m->getPrice() << std::endl;
+	ownContributionValue = m.getPrice() * ownContribution; //wartosc wkladu wlasnego
+	std::cout << "\ncena: "<< m.getPrice() << std::endl;
 	monthRate = 
-		( ( m->getPrice() - ownContributionValue ) * r * pow((1 + r), period) - finalBuyPrice * r)
+		( ( m.getPrice() - ownContributionValue ) * r * pow((1 + r), period) - finalBuyPrice * r)
 		/
 		(pow((1 + r), period) - 1);
 	//std::cout << monthRate<<"rata z metody\n";
