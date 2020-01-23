@@ -38,7 +38,7 @@ void Leasing::ReadConstData(std::string filename) {
 		std::cout << "Nastapi uzycie domyslnych wartosci programu\n"; //z konstruktora bezargumentowego
 	}
 	else {
-		std::cout << "Pomyslnie otwarto plik leasing\n";
+		std::cout << "Pomyslnie otwarto plik " << filename << std::endl;
 		std::string str;
 		int line_num = 0;
 		while (std::getline(file, str)) {
@@ -48,11 +48,11 @@ void Leasing::ReadConstData(std::string filename) {
 			if (line_num == 1) {
 				ss >> constInterestRate >> constMarkup >> amortization;
 				constInterestRate /= (double)100;
-				std::cout << constInterestRate << "constInterest z petli";
+				//std::cout << constInterestRate << "constInterest z petli";
 				constMarkup /= (double)100;
 				amortization /= (double)100;
-				std::cout << constMarkup << "const Markup z petli";
-				std::cout << amortization << "amortization z petli";
+				//std::cout << constMarkup << "const Markup z petli";
+				//std::cout << amortization << "amortization z petli";
 			}
 			//odczyt oprocentowania zaleznego od przebiegu
 			else if (line_num == 2) {
@@ -83,12 +83,14 @@ void Leasing::calculateTotalMarkup() {
 		if (annMileage > MileagesLimits[k]	&&
 			annMileage <= MileagesLimits[k+1]) {
 			totalMarkup = constMarkup + Percentages[k];
+			break;
 		//	std::cout << "przebieg ze srodka =" << annMileage << ' ';
 		//	std::cout << totalMarkup << " -< TOTAL MARKUP w w IF\n";
 
 		}
 		if (annMileage > MileagesLimits[MileagesLimits.size() - 1]) { // 10k, 20k, 40k
 			totalMarkup = constMarkup + Percentages[Percentages.size() - 1];
+			break;
 		//	std::cout << "przebieg z konca =" << annMileage << ' ';
 		//	std::cout << totalMarkup << " -< TOTAL MARKUP w w IF222\n";
 		}
@@ -106,7 +108,7 @@ void Leasing::calculateMonthRate(Model m) {
 	r = annualInterestRate / (double)12; // oprocentowanie miesieczne
 	//std::cout << r << "<- MIESIECZNE OPROCENTOWANIE";
 	ownContributionValue = m.getPrice() * ownContribution; //wartosc wkladu wlasnego
-	std::cout << "\ncena: "<< m.getPrice() << std::endl;
+	//std::cout << "\ncena: "<< m.getPrice() << std::endl;
 	monthRate = 
 		( ( m.getPrice() - ownContributionValue ) * r * pow((1 + r), period) - finalBuyPrice * r)
 		/
@@ -121,3 +123,6 @@ std::ostream& operator << (std::ostream& os, Leasing l) {
 	return os;
 }
 
+float Leasing::getMonthRate() {
+	return this->monthRate;
+}

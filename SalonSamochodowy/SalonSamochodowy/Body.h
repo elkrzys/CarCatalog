@@ -13,7 +13,11 @@ public:
 	~Body() {};
 
 	std::string getColor();
+	std::string getSpecificColor();
 	std::string getType();
 	int getDoors();
+	int getSeats();
+	int getTrunk();
+	friend std::ostream& operator << (std::ostream& os, Body);
 };
 #endif

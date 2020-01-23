@@ -25,16 +25,35 @@ Model::Model(int _id, std::string mname, std::string gen, int yr, std::vector<st
 	price(pr),
 	next(nullptr)
 {}
-void Model::DisplayModelInfo() const{
+void Model::DisplayModelInfo() const {
+	std::cout << "--------------------------------------------------" << std::endl;
 	std::cout.precision(2);
-	std::cout << "ID: " << this->id << std::endl;
-	std::cout << this->modelName << ' ' << "price: " << std::fixed << this->price<< std::endl;
-	std::cout << this->engine->getEngineName() << std::endl;
+	std::cout << "\t* Numer ID: " << this->id << " *" << std::endl;
+	std::cout << '\t' << this->modelName << ' ' << this->generation << std::endl;
+	std::cout << this->body;
+	std::cout << "\tWersja wyposazenia: ";
+		if (this->equipment == Enjoy) std::cout << "Enjoy";
+			else if (this->equipment == Dynamic) std::cout << "Dynamic";
+			else if (this->equipment == Elite) std::cout << "Elite";
+			else if (this->equipment == Unknown) std::cout << "Nieznane";
+		std::cout << std::endl;
+	std::cout << '\t' << "Dostepny w: ";
+
 	for (auto &loc : this->localization) {
 		std::cout << loc << ' ';
 	}
+
 	std::cout << std::endl;
 	std::cout << *this->engine;
+	std::cout << '\t' << "Cena: " << std::fixed << this->price << std::endl;
+	std::cout << "--------------------------------------------------" << std::endl;
+}	
+std::ostream& operator <<(std::ostream& out, const Model& m) {
+	out << "\tModel ID: " << m.id << std::endl;
+	out << '\t' << m.modelName << ' '<< m.generation << std::endl;
+	out << m.body << std::endl;
+	out << *m.engine << std::endl;
+	return out;
 }
 float Model::getPrice() {
 	return this->price;

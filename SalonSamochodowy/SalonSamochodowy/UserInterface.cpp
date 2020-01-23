@@ -3,15 +3,16 @@
 #include"Model.h"
 #include"Leasing.h"
 #include"SearchModel.h"
+#include"EquipmentReader.h"
+#include"MakeReport.h"
 #include<iostream>
 #include<stdlib.h>
 
-//UserInterface::UserInterface(ListOfModels &_mainList, SearchModel _search, Leasing _calc)  
-//	: userChoice(0), mainList(_mainList), search(_search), Calculator(_calc) {};
 
 void UserInterface::DisplayWelcome() {
+	std::cout << std::endl;
 	std::cout << " --- SALON SAMOCHODOWY OPEL --- " << std::endl;
-	std::cout << " Obsluga doradztwa i leasingu samochodow osobowy " << std::endl;
+	std::cout << " Obsluga doradztwa i leasingu samochodow osobowych " << std::endl;
 	std::cout << std::endl << std::endl << std::endl;
 }
 void UserInterface::DisplayMainMenu() {
@@ -26,11 +27,10 @@ void UserInterface::DisplayMainMenu() {
 }
 void UserInterface::SearchMenu(SearchModel search, ListOfModels mainList) {
 	std::cout << "Wprowadz dane do wyszukania" << std::endl << std::endl;
-
+	//config
 	search.SetArgs();
-	std::cout << "USERINTERFACE PRZED WYWOLANIEM, JEST OK" << std::endl;
 	search.Search(&mainList);
-	std::cout << "PO WYWOLANIU" << std::endl;
+
 	ListOfModels* allFound = search.getFoundElements();
 
 	if (!allFound->head) {
@@ -44,26 +44,42 @@ void UserInterface::SearchMenu(SearchModel search, ListOfModels mainList) {
 	}
 }
 void UserInterface::LeaseMenu(SearchModel search, ListOfModels mainList, Leasing Calculator) const{
-	int id;
-	//ListOfModels* newList = &mainList;
-	std::cout << " --- URUCHOMIONO KALKULATOR RATY LEASINGOWEJ --- " << std::endl;
+	
+	int id = 0;
+	
+	std::cout << " --- URUCHOMIONO KALKULATOR RATY LEASINGOWEJ --- " << std::endl << std::endl;
 	std::cout << "Wpisz ID wybranego modelu: ";
 	std::cin >> id;
-	if (id != (int)(id) || id == 0) {
-		std::cout << "Podano bledny numer ID, sprobuj ponownie." << std::endl;
-		LeaseMenu(search, mainList, Calculator);
+
+	if (std::cin.fail() || id == 0) {
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+		std::cout << "\n @ Podano bledny numer ID, sprobuj ponownie." << std::endl;
+		return;
 	}
 	else {
-		Model toCalculate = search.SearchByID(&mainList, id);
+
+		Model * toCalculate = search.SearchByID(&mainList, id);
+
+		if (!toCalculate) {
+			std::cout << "Brak znalezionego modelu" << std::endl;
+			return;
+		}
 
 		int mileage, period;
 		float ownContr;
-
-		std::cout << "KRYTERIA LEASINGU: roczny przebieg, okres leasingowania oraz wklad wlasny" << std::endl;
+		
+		std::cout << std::endl;
+		std::cout << "KRYTERIA LEASINGU: roczny przebieg, okres leasingowania oraz wklad wlasny" << std::endl << std::endl;
 		std::cout << "Jaki bedzie roczny przebieg pojazdu? (do 10 000km, do 20 000km, do 30 000km lub powyzej)" << std::endl;
 		std::cout << "Wprowadz przewidywany przebieg: ";
+
 		std::cin >> mileage;
-		while (mileage != (int)(mileage) || mileage < 0) {
+
+		while (std::cin.fail() || mileage < 0) {
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << "Bledne wskazanie przebiegu, sprobuj wprowadzic ponownie"<<std::endl;
 			std::cin >> mileage;
 		}
@@ -71,34 +87,134 @@ void UserInterface::LeaseMenu(SearchModel search, ListOfModels mainList, Leasing
 		std::cout << "Wybierz liczbe rat leasingu - 12, 24, 36 lub 60" << std::endl;
 		std::cout << "Liczba rat: ";
 		std::cin >> period;
-		while (period != (int)period || period < 12 || period > 60) {
+
+		while (std::cin.fail() || 
+				period != 12 && 
+					period != 24 && 
+						period != 36 && 
+							period != 60) {
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << "Bledne wskazanie okresu leasingowania, sprobuj ponownie" << std::endl;
 			std::cin >> period;
 		}
 
-		std::cout << "Wprowadz procent wkladu wlasnego [%]" << std::endl;
+		std::cout << "Wprowadz procent wkladu wlasnego [%] (od 0 do 30)" << std::endl;
 		std::cout << "Wklad wlasny (w %): ";
 		std::cin >> ownContr;
-		while (isnan(ownContr) || ownContr < 0 || ownContr > 100) {
+		while (std::cin.fail() || 
+				ownContr < 0 || ownContr > 30) {
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << "Blednie wprowadzony procent wkladu wlasnego, sprobuj ponownie" << std::endl;
 			std::cin >> ownContr;
 		}
 		
 		Calculator = Leasing(period, ownContr, mileage);
-		Calculator.calculateMonthRate(toCalculate);
-		std::cout << "OBLICZONE\n";
+		Calculator.calculateMonthRate(*toCalculate);
 		
-		std::cout << "Miesieczna rata leasingu dla wybranego modelu:" << std::endl;
-		toCalculate.DisplayModelInfo();
+		//wypisanie
+		system("cls");
+		std::cout << "Dla wybranego modelu:" << std::endl;
+		toCalculate->DisplayModelInfo();
+
 		std::cout << std::endl;
 		std::cout << "Oraz przy podanych patametrach: " << std::endl;
-		std::cout << "Ilosc rat: " << period << " Przebieg: " << mileage << "Procent wkl. wlasn.: " << ownContr << std::endl;
-		std::cout << "\tWynosi: " << Calculator;
+		std::cout << "Ilosc rat: " << period << 
+			", Roczny przebieg: " << mileage << "km," << 
+			" Wklad wlasn.: " << ownContr << '%' << 
+			std::endl << std::endl;
+
+		std::cout << "\t-------------------------------------------------"<<std::endl;
+		std::cout << "\t*** " << Calculator << " ***" << std::endl;
+		std::cout << "\t-------------------------------------------------" << std::endl;
+		std::cout << std::endl << std::endl;
+
+		//wpisanie do raportu
+		std::cout << "Dodac zamowienie do raportu? t/n - tak/nie" << std::endl;
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		char tn = getchar();
+		if (tn == 't' || tn == 'T') {
+			MakeReport report("oferty.txt");
+			int valid = report.setRepDetails(period, mileage, ownContr, Calculator.getMonthRate());
+			if (valid == 10) {
+				report.appNewReport(*toCalculate);
+				std::cout << "Dodano oferte do zestawienia, poinformuj klienta" << std::endl;
+			}
+			else {
+				std::cout << "Bledne dane [Err 11]" << std::endl;
+			}
+		}
+		else std::cout << "Pominieto dodawanie zamowienia" << std::endl;
+	}
+}
+
+void UserInterface::EqMenu() {
+	std::cout << std::endl;
+	std::cout << "--- Wyposazenie ---" << std::endl;
+	std::cout << "Opis i porownanie wyposazenia samochodu" << std::endl;
+	
+	std::cout << "\t[1] - Pakiet Enjoy" << std::endl;
+	std::cout << "\t[2] - Pakiet Dynamic" << std::endl;
+	std::cout << "\t[3] - Pakiet Elite" << std::endl;
+	std::cout << "\t[4] - Porownaj wszystkie" << std::endl;
+	std::cout << "\t[9] - Powrot" << std::endl << std::endl;
+
+	int choice;
+	std::cout << "Wybierz opcje:" << std::endl;
+	std::cin >> choice;
+	if (std::cin.fail()) {
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cout << "Bledny wybor, powrot" << std::endl << std::endl;
+		return;
+	}
+	else {
+		switch (choice) {
+		case 1: {
+			EquipmentReader readEq("wyposazenie/enjoy.txt");
+			readEq.readAndDisplayEq();
+		}
+			break;
+		case 2: {
+			EquipmentReader readEq("wyposazenie/dynamic.txt");
+			readEq.readAndDisplayEq();
+		}
+			break;
+		case 3: {
+			EquipmentReader readEq("wyposazenie/elite.txt");
+			readEq.readAndDisplayEq();
+		}
+			break;
+		case 4: {
+			EquipmentReader readEq("");
+			readEq.displayAllEq("wyposazenie/enjoy.txt", "wyposazenie/dynamic.txt", "wyposazenie/elite.txt");
+		}
+			break;
+		case 9:
+			std::cout << "Anulowano" << std::endl << std::endl;
+			break;
+		default:
+			std::cout << "Bledny wybor, powrot" << std::endl << std::endl;
+			return;
+			break;
+		}
 	}
 }
 int UserInterface::MainMenu(ListOfModels * mainList, SearchModel search, Leasing Calculator) {
+	
 	std::cin >> userChoice;
+
+	if (std::cin.fail()) {
+		std::cout << "Bledny wybor, sprobuj ponownie" << std::endl << std::endl;
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		system("cls");
+		return 0;
+	}
+
 	ListOfModels* operatingList = mainList;
+
 	switch (userChoice) {
 	case 1: {
 		operatingList->displayElements();
@@ -116,7 +232,7 @@ int UserInterface::MainMenu(ListOfModels * mainList, SearchModel search, Leasing
 	}
 		break;
 	case 4: {
-		std::cout << "WYPOSAZENIE";
+		EqMenu();
 		return 4;
 	}
 		break;

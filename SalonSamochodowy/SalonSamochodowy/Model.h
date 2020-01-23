@@ -34,6 +34,7 @@ public:
 	~Model() {};
 	//wskaznik na nastepny element - potrzebne do listy
 	Model* next;
+	friend std::ostream& operator << (std::ostream&, const Model&);
 
 	//gettery do wyszukiwania
 	float getPrice();

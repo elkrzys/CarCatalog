@@ -11,7 +11,7 @@
 
 ReadModelFile::ReadModelFile(std::string fname) : ReadFile(fname) {
 	file.open(fileName, std::ios_base::in);
-	if (file.good()) std::cout << "Pomyslnie otwarto plik\n";
+	if (file.good()) std::cout << "Pomyslnie otwarto plik " << fileName << std::endl;
 	else std::cout << "error1\n";
 }
 ReadModelFile::~ReadModelFile() {

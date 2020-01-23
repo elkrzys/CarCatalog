@@ -13,7 +13,7 @@ public:
 	ReadFile(std::string fname) : fileName(fname) {};
 
 	std::string getFileName(); //moze sie przydac
-	//friend std::istream & operator >> (std::istream &, std::string &);
+	
 	std::vector<std::string> SplitLine(const std::string, const std::string &);
 };
 #endif

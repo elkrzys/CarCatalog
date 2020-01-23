@@ -34,6 +34,7 @@ public:
 	void calculateMonthRate(Model); 
 	//wyswietlanie raty
 	friend std::ostream& operator << (std::ostream& os, Leasing ); 
+	float getMonthRate();
 	
 
 };

@@ -13,7 +13,6 @@ class Engine
 public:
 	friend std::ostream &operator << (std::ostream &os, const Engine &e);
 	std::string getEngineName() const;
-	//Engine() {};
 	Engine(Engine *);
 	Engine(std::string ename, std::string ftype,
 		float cap, int hp, float fAvg, bool trb);

@@ -9,15 +9,12 @@
 
 class UserInterface {
 	int userChoice;
-	//ListOfModels mainList;
-	//SearchModel search;
-	//Leasing Calculator;
 public:
-	//UserInterface(ListOfModels&, SearchModel, Leasing);
 	static void DisplayWelcome();
 	void DisplayMainMenu();
 	int MainMenu(ListOfModels*, SearchModel, Leasing);
 	void SearchMenu(SearchModel, ListOfModels);
-	void LeaseMenu(SearchModel, ListOfModels, Leasing)const;
+	void LeaseMenu(SearchModel, ListOfModels, Leasing) const;
+	void EqMenu();
 };
 #endif

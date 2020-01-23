@@ -19,31 +19,24 @@ int main() {
 
 	ReadModelFile fileOfModels("spis_aut.csv");
 	ReadEngineFile fileOfEngines("silniki.txt");
-
-	Leasing calcLeasing;
-	calcLeasing.ReadConstData("oprocentowanie.txt");
-
 	
 	fileOfEngines.MakeEnginesTree(tree);
 	fileOfModels.GetModelFromLine(&tree, &listOfCars);
 	
+	Leasing calcLeasing;
+	calcLeasing.ReadConstData("oprocentowanie.txt");
+
 	SearchModel search;
-	//UserInterface Menu(listOfCars, search, calcLeasing);
 	UserInterface::DisplayWelcome();
 	int _returnedOption = 0;
-	//UserInterface Menu(listOfCars, search, calcLeasing);
+
 	UserInterface Menu;
 	do {
 		Menu.DisplayMainMenu();
 		_returnedOption = Menu.MainMenu(&listOfCars, search, calcLeasing);
-		std::cout << "W petli menu\n";
 	} while (_returnedOption != 9);
-	std::cout << "Wyszedlem" << std::endl;
-	//Menu.DisplayMainMenu();
-	//Menu.MainMenu();
-	//listOfCars.displayElements();
 
 	listOfCars.deleteList();
-	_getch();
+	
 	return 0;
 }

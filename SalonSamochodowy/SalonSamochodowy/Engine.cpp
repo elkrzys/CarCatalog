@@ -26,12 +26,12 @@ std::string Engine::getEngineName() const{
 }
 std::ostream &operator << (std::ostream &os, const Engine &e) {
 	os.precision(1);
-	os << "Pojemnosc: " << e.engineCapacity;
+	os << "\tPojemnosc: " << e.engineCapacity;
 	os << " Rodzaj paliwa: " << e.fuelType << std::endl;
-	os << "Moc: " << e.horsePower;
-	os << " Srednie spalanie: " << e.avgFuelConsumption << std::endl;
-	if (e.turbo) os << "Silnik turbodoladowany";
-	else os << "Bez turbosprezarki";
+	os << "\tMoc: " << e.horsePower << "KM";
+	os << " Srednie spalanie: " << e.avgFuelConsumption << " L/100km" << std::endl;
+	if (e.turbo) os << "\tSilnik turbodoladowany";
+	else os << "\tBez turbosprezarki";
 	os << std::endl;
 	return os;
 }

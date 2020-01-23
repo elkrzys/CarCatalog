@@ -25,7 +25,7 @@ void ListOfModels::deleteList() {
 		int i = 1;
 		Model * next = nullptr;
 		while (head) {
-			std::cout << "Usuwam element nr " << i++ <<std::endl;
+			//std::cout << "Usuwam element nr " << i++ <<std::endl;
 			next = head->next;
 			delete head;
 			head = next;
@@ -41,12 +41,8 @@ void ListOfModels::displayElements() {
 		Model * p = head;
 		while (p) {
 			p->DisplayModelInfo();
-			std::cout << std::endl << std::endl;
+			std::cout << std::endl;
 			p = p->next;
 		}
 	}
-}
-ListOfModels::~ListOfModels() {
-	//deleteList();
-	std::cout << "destroying list";
 }

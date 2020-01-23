@@ -5,130 +5,158 @@
 #include<string>
 #include<conio.h>
 
-SearchModel::SearchModel() : searchHead(nullptr), findModel(nullptr) {}
+SearchModel::SearchModel() : searchHead(nullptr) {}
 
 void SearchModel::SetArgs() {
 
 	std::string data;
+	char k;
 	std::cout << "Ponizej pojawia sie kryteria wyszukiwania." << std::endl;
 	std::cout << "Aby wpisac odpowiednie kryterium nalezy po zapytaniu zatwierdzic klawiszem Enter" << std::endl;
 	std::cout << "Aby pominac dane kryterium, nalezy nasisnac klawisz ESC" << std::endl << std::endl;
 
 	std::cout << "Nazwa modelu ? (Enter / Esc) :/"<<std::endl;
-	char k;
+//	k = std::cin.get();
+	
 	if (_getch() == 13) {
-		k = getchar();
-
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		std::cout << "Podaj model: ";
 		std::getline(std::cin, data);
+		//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		mapOfArgs.insert({ "model", data });
 	}
+	//fflush(stdin);
 	
+	
+//	k = std::cin.get();
 	std::cout << "Generacja ? (Enter / Esc) :/" << std::endl;
 	if (_getch() == 13) {
-		k = getchar();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		std::cout << "Podaj generacje: ";
 		std::getline(std::cin, data);
 		mapOfArgs.insert({ "generation", data });
 	}
-
+//	fflush(stdin);
+	//
 	std::cout << "Lokalizacja ? (Enter wybor / Esc dowolna) :/" << std::endl;
 	if (_getch() == 13) {
-		k = getchar();
-		std::cout << "Wybierz miasto: Krakow, Gliwice, Katowice lub Warszawa";
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cout << "Wybierz miasto | Krakow, Gliwice, Katowice lub Warszawa |: ";
 		std::getline(std::cin, data);
+		//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		mapOfArgs.insert({ "localization", data });
 	}
-
+	
+	//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	std::cout << "Rok produkcji ? (Enter / Esc) :/" << std::endl;
 	if (_getch() == 13) {
-		k = getchar();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		std::cout << "Podaj rok produkcji: "; //stoi
 		std::getline(std::cin, data);
+	//	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		mapOfArgs.insert({ "year", data });
 	}
-
+	
+	//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	std::cout << "Kolor nadwozia ? (Enter / Esc) :/" << std::endl;
 	if (_getch() == 13) {
-		k = getchar();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		std::cout << "Podaj kolor: ";
 		std::getline(std::cin, data);
+	//	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		mapOfArgs.insert({ "color", data });
 	}
-
+	
+	//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	std::cout << "Rodzaj paliwa ? (Enter / Esc) :/" << std::endl;
 	if (_getch() == 13) {
-		k = getchar();
+		//k = getchar();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		std::cout << "Rodzaj paliwa (benzyna / diesel): ";
 		std::getline(std::cin, data);
+	//	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		mapOfArgs.insert({ "fuel", data });
 	}
-
+	
+	//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	std::cout << "Pojemnosc skokowa ? (Enter / Esc) :/" << std::endl;
 	if (_getch() == 13) {
-		k = getchar();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		std::cout << "Podaj pojemnosc silnika: ";
-		std::getline(std::cin, data);
+		//std::getline(std::cin, data);
+		std::cin >> data;
+	//	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		mapOfArgs.insert({ "capacity", data });
 	}
-
+	
+	//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	std::cout << "Moc silnika ? (Enter / Esc) :/" << std::endl;
 	if (_getch() == 13) {
-		k = getchar();
-		std::cout << "Podaj moc: ";
-		std::getline(std::cin, data);
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cout << "Podaj minimalna moc: ";
+		//std::getline(std::cin, data);
+		std::cin >> data;
+	//	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		mapOfArgs.insert({ "hp", data });
 	}
-
+	
+	//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	std::cout << "Rodzaj nadwozia ? (Enter / Esc) :/" << std::endl;
 	if (_getch() == 13) {
-		k = getchar();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		std::cout << "Wybierz nadwozie: ";
 		std::getline(std::cin, data);
+	//	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		mapOfArgs.insert({ "body", data });
 	}
-
+	
+	//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	std::cout << "Liczba drzwi ? (Enter / Esc) :/" << std::endl;
 	if (_getch() == 13) {
-		k = getchar();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		std::cout << "Wybierz liczbe drzwi (3 / 4 / 5): ";
-		std::getline(std::cin, data);
+		//std::getline(std::cin, data);
+		std::cin >> data;
+	//	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		mapOfArgs.insert({ "doors", data });
 	}
-
+	
+//	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	std::cout << "Dolna granica cenowa ? (Enter / Esc) :/" << std::endl;
 	if (_getch() == 13) {
-		k = getchar();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		std::cout << "Cena od: ";
-		std::getline(std::cin, data);
+		//std::getline(std::cin, data);
+		std::cin >> data;
+	//	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		mapOfArgs.insert({ "botPrice", data });
 	}
 	else {
 		mapOfArgs.insert({ "botPrice", "0" });
 	}
-
+	
+	//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	std::cout << "Gorna granica cenowa ? (Enter / Esc) :/" << std::endl;
 	if (_getch() == 13) {
-		k = getchar();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		std::cout << "Do: ";
-		std::getline(std::cin, data);
+		//std::getline(std::cin, data);
+		std::cin >> data;
+	//	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		mapOfArgs.insert({ "topPrice", data });
 	}
 	else {
 		mapOfArgs.insert({ "topPrice", "99999999" });
 	}
-	std::cout << "TU KONCZE, JEST OK 1" << std::endl;
 }
 
 void SearchModel::Search(ListOfModels * listHead) {
 		
 	ListOfModels * newList = listHead;
 	searchHead = new ListOfModels;
-	std::cout << "PRZED PETLA, JEST OK" << std::endl;
+	
 	bool correct = false;
 	while (newList->head) {
-		std::cout << "ID newList: " << newList->head->getID() << std::endl;
-		std::cout << "TU WCHODZE, JEST OK" << std::endl;
 		correct = true;
 		for (auto itr = mapOfArgs.begin(); itr != mapOfArgs.end(); itr++) {
 			//zapytania o model
@@ -163,7 +191,7 @@ void SearchModel::Search(ListOfModels * listHead) {
 				if (std::stof(itr->second) != newList->head->getEngine()->getCapacity()) correct = false;
 			}
 			if (itr->first == "hp" && std::stoi(itr->second) != 0) {
-				if (std::stoi(itr->second) != newList->head->getEngine()->getHP()) correct = false;
+				if (std::stoi(itr->second) > newList->head->getEngine()->getHP()) correct = false;
 			}
 			//cena
 			float botPrice = 0, topPrice = 999999999;
@@ -172,32 +200,30 @@ void SearchModel::Search(ListOfModels * listHead) {
 			if (newList->head->getPrice() < botPrice || newList->head->getPrice() > topPrice)
 				correct = false;
 
-			std::cout << "CORRECT: " << correct << std::endl;
+			//std::cout << "CORRECT: " << correct << std::endl;
 		}
 		if (correct) {
 			searchHead->push(*(newList->head));
 			newList->head = newList->head->next;
-			std::cout << "DODAJE" << std::endl;
 		}
 		else
 			newList->head = newList->head->next;
 	}
-	std::cout << "TU KONCZE, JEST OK 3" << std::endl;
 }
 ListOfModels* SearchModel::getFoundElements() {
 	return this->searchHead;
 }
-Model SearchModel::SearchByID(ListOfModels* mainList, int ID){
+Model * SearchModel::SearchByID(ListOfModels* mainList, int ID){
 	ListOfModels* newList = mainList;
-	Model* calculated = nullptr;
+	//Model* calculated = nullptr;
 	while (newList->head) {
 		if (newList->head->getID() == ID) {
-			calculated = newList->head;
+			//calculated = newList->head;
+			return newList->head;
 			break;
-			//newList->deleteList();
 		}
 		else
 			newList->head = newList->head->next;
 	}
-	return *calculated;
+	return nullptr;
 }

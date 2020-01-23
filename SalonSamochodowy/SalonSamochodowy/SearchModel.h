@@ -9,7 +9,6 @@ class SearchModel {
 	//mapa - inty i double musza byc konwertowane przy szukaniu
 	std::map<std::string, std::string> mapOfArgs;
 	ListOfModels* searchHead;
-	ListOfModels* findModel;
 	//ewentualnie lista parametrow jakby auto nie dzialalo
 public:
 	SearchModel();
@@ -20,7 +19,7 @@ public:
 	//zwrot listy
 	ListOfModels* getFoundElements();
 	//wyszukiwanie po ID
-	Model SearchByID(ListOfModels*, int ID);
+	Model * SearchByID(ListOfModels*, int ID);
 
 };
 
